@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>주간 광기 보상 계산기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>주간 광기 보상 계산기</h1>
+
+  <label for="weeks">몇 주?</label>
+  <input type="number" id="weeks" min="1" value="1">
+  <hr>
+
+  <h3>📦 기본 포함 보상 (자동 적용)</h3>
+  <ul>
+    <li>정기 점검 보상: 주당 300광기</li>
+    <li>거던 주간 보상: 주당 750광기</li>
+  </ul>
+  <hr>
+
+  <h3>✅ n.5장 이벤트 보상 (로드맵에 맞춰서 골라주세요)</h3>
+  <label><input type="checkbox" class="bokgak" id="bokgak1"> 0.5장 이벤트 1</label>
+  <label><input type="checkbox" class="bokgak" id="bokgak2" disabled> 0.5장 이벤트 2</label>
+  <label><input type="checkbox" class="bokgak" id="bokgak3" disabled> 0.5장 이벤트 3</label>
+  <hr>
+
+  <h3>✅ 월정액 / 반정액</h3>
+  <label><input type="checkbox" id="monthly"> 월정액 (65광기 × 7일)</label>
+  <label><input type="checkbox" id="halfMonthly"> 반정액 (39광기 × 7일)</label>
+  <hr>
+
+  <h3>✅ 티켓 패키지 구매 여부</h3>
+  <label><input type="checkbox" id="ticket"> 티켓 패키지 (짝수 주차마다 +5200광기)</label>
+  <hr>
+
+  <h3>✅ 발푸르기스의 밤 이벤트</h3>
+  <label><input type="checkbox" id="walpurgis"> 발푸르기스의 밤 이벤트 (+2580광기)</label>
+  <hr>
+
+  <h3>❌ 엔케팔린 충전</h3>
+<label><input type="checkbox" class="enk" id="enk26" value="26"> 26광기 × 7일 × 주 수</label>
+<label><input type="checkbox" class="enk" id="enk52" value="52" disabled> 52광기 × 7일 × 주 수</label>
+<label><input type="checkbox" class="enk" id="enk78" value="78" disabled> 78광기 × 7일 × 주 수</label>
+
+  <hr>
+
+ <h3>❌ 일일 유료 단챠(하나만 선택)</h3>
+<label><input type="radio" name="gacha" value="39"> 39광기 × 7일 × 주 수</label>
+<label><input type="radio" name="gacha" value="26"> 26광기 × 7일 × 주 수</label>
+<label><input type="radio" name="gacha" value="0" checked> 선택 안 함</label>
+
+  <hr>
+
+  <button onclick="calculate()">계산하기</button>
+  <h2 id="total"></h2>
+<div id="result"></div>
+
+  <script src="script.js"></script>
+  <script>
+    // 🔓 엔케팔린 해금
+    document.getElementById("enk26").addEventListener("change", function () {
+      const enk52 = document.getElementById("enk52");
+      const enk78 = document.getElementById("enk78");
+      if (this.checked) {
+        enk52.disabled = false;
+      } else {
+        enk52.checked = false;
+        enk78.checked = false;
+        enk52.disabled = true;
+        enk78.disabled = true;
+      }
+    });
+
+    document.getElementById("enk52").addEventListener("change", function () {
+      const enk78 = document.getElementById("enk78");
+      if (this.checked) {
+        enk78.disabled = false;
+      } else {
+        enk78.checked = false;
+        enk78.disabled = true;
+      }
+    });
+
+    // 🔓 .5장 이벤트 해금
+    document.getElementById("bokgak1").addEventListener("change", function () {
+      const b2 = document.getElementById("bokgak2");
+      const b3 = document.getElementById("bokgak3");
+      if (this.checked) {
+        b2.disabled = false;
+      } else {
+        b2.checked = false;
+        b2.disabled = true;
+        b3.checked = false;
+        b3.disabled = true;
+      }
+    });
+
+    document.getElementById("bokgak2").addEventListener("change", function () {
+      const b3 = document.getElementById("bokgak3");
+      if (this.checked) {
+        b3.disabled = false;
+      } else {
+        b3.checked = false;
+        b3.disabled = true;
+      }
+    });
+  </script>
+</body>
+</html>
